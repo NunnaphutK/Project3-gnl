@@ -6,25 +6,11 @@
 /*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 18:14:08 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/23 18:14:09 by nkiticha         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:19:22 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-// ft_strndup
-// check leak memory (valgrind --leak-check=full)
-// if rd < 1 (NULL) ไม่งั้นจะติดลูปตอนอ่าน main
-
-// nl = NULL;
-// str = NULL;
-// printf("1= %s--", nl);
-// printf("1str= %s--", str);
-// printf("2= %c--", nl[1]);
-// printf("2str= %s--", result);
-// printf("2str= %s", str);
-// printf("%s", nl);
-// printf("3= %s--", result);
 
 size_t	ft_strlen(const char *s)
 {

@@ -1,4 +1,6 @@
 #include "get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
 
 int	main(void)
 {
@@ -7,17 +9,13 @@ int	main(void)
 	char	*str;
 
 	fd = open("testtxt.txt", O_RDONLY);
-	// get_next_line(fd);
 	printf("==================\n");
-	str = get_next_line(fd);
-	printf("%s", str);
-	// int i = 10;
-	// while (i > 0)
-	// {
-	// 	str = get_next_line(fd);
-	// 	printf("%s", str);
-	// 	free(str);
-	// 	i--;
-	// }
+	// str = get_next_line(fd);
+	// printf("%s", str);
+	while ((str = get_next_line(fd)))
+	{
+		printf("%s", str);
+		free(str);
+	}
 	close(fd);
 }
