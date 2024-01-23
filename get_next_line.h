@@ -6,7 +6,7 @@
 /*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 18:13:56 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/23 18:17:27 by nkiticha         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:45:56 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-char	*ft_strdup(const char *s1);
+char	*ft_strndup(const char *s1, int n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);

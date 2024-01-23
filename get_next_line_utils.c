@@ -6,7 +6,7 @@
 /*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 18:14:08 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/23 20:19:22 by nkiticha         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:53:22 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*ss_ptr;
 
 	if (s1 == NULL)
-		return (ft_strdup(s2));
+		return (ft_strndup(s2, ft_strlen(s2)));
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	ss = (char *)malloc(sizeof(char) * len);
 	if (ss == NULL)
@@ -43,18 +43,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ss_ptr);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strndup(const char *s1, int n)
 {
 	size_t		i;
 	size_t		len;
+	size_t		nn;
 	char		*dest;
 
+	nn = (size_t)n;
 	i = 0;
 	len = ft_strlen(s1);
 	dest = (char *)malloc(sizeof(char) * (len + 1));
 	if (dest == NULL)
 		return (NULL);
-	while (i < len)
+	while (i < len && i < nn)
 	{
 		dest[i] = s1[i];
 		i++;
