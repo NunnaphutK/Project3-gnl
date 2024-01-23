@@ -3,22 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nunnaphut <nunnaphut@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:33:02 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/23 04:33:34 by nunnaphut        ###   ########.fr       */
+/*   Updated: 2024/01/23 18:15:19 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+
 char	*get_next_line(int fd)
 {
-	char            *result;
-	char            *tmp;
+	char			*result;
+	char			*tmp;
 	static char		*str;
-	char            *keep;
-	int             rd;
+	char			*keep;
+	int				rd;
 	static char		*nl;
 
 	tmp = malloc(BUFFER_SIZE + 1);
