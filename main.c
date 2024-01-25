@@ -10,13 +10,16 @@ int	main(void)
 	char	*str;
 
 	fd = open("testtxt.txt", O_RDONLY);
-	printf("==================\n");
-	// str = get_next_line(fd);
-	// printf("%s", str);
-	while ((str = get_next_line(fd)))
-	{
-		printf("%s", str);
-		free(str);
-	}
-	close(fd);
+	str = get_next_line(fd);
+	printf("%s", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("%s", str);
+	free(str);
+    close(fd);
+	// while ((str = get_next_line(fd)))
+	// {
+	// 	printf("%s", str);
+	// 	free(str);
+	// }
 }
