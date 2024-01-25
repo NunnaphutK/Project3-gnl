@@ -6,7 +6,7 @@
 /*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:33:02 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/23 22:05:11 by nkiticha         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:02:33 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_next_line(int fd)
 	int				rd;
 	static char		*nl;
 
-	tmp = malloc(BUFFER_SIZE + 1);
+	tmp = (char *)malloc(BUFFER_SIZE + 1);
 	if (!tmp)
 		return (0);
 	while (!nl)
@@ -69,7 +69,7 @@ char	*get_next_line(int fd)
 		str = NULL;
 		return (result);
 	}
-	if (nl[1] != '\0')
+	if (str != NULL && nl[1] != '\0')
 	{
 		result = ft_strndup(str, (ft_strlen(str) - ft_strlen(nl) + 1));
 		if (!result)
@@ -85,10 +85,10 @@ char	*get_next_line(int fd)
 		nl = ft_strchr(str, '\n');
 		return (result);
 	}
-	result = ft_strndup(str, ft_strlen(str));
-	nl = NULL;
 	if (str == NULL)
 		return (NULL);
+	result = ft_strndup(str, ft_strlen(str));
+	nl = NULL;
 	free(str);
 	str = NULL;
 	return (result);

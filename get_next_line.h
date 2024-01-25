@@ -6,14 +6,14 @@
 /*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 18:13:56 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/23 21:45:56 by nkiticha         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:13:38 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 10
 # endif
 
 # include <stdlib.h>
