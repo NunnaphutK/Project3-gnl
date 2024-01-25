@@ -6,15 +6,18 @@
 /*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:33:02 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/25 15:02:33 by nkiticha         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:26:28 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
-#include <stdio.h>
-#include <string.h>
+char	**ft_free(char *str)
+{
+	free(str);
+	str = NULL;
+	return (NULL);
+}
 
 char	*get_next_line(int fd)
 {
@@ -28,7 +31,13 @@ char	*get_next_line(int fd)
 
 	tmp = (char *)malloc(BUFFER_SIZE + 1);
 	if (!tmp)
+	{
+		if (str)
+			free(str);
+		str = NULL;
+		nl = NULL;
 		return (0);
+	}
 	while (!nl)
 	{
 		rd = read(fd, tmp, BUFFER_SIZE);
@@ -81,12 +90,15 @@ char	*get_next_line(int fd)
 		keep = ft_strndup((nl + 1), ft_strlen(ft_strchr(str, '\n') + 1));
 		free(str);
 		str = keep;
-		nl = NULL;
-		nl = ft_strchr(str, '\n');
+		if (str)
+			nl = ft_strchr(str, '\n');
 		return (result);
 	}
 	if (str == NULL)
+	{
+		nl = NULL;
 		return (NULL);
+	}
 	result = ft_strndup(str, ft_strlen(str));
 	nl = NULL;
 	free(str);
