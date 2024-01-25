@@ -6,102 +6,95 @@
 /*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:33:02 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/25 17:26:28 by nkiticha         ###   ########.fr       */
+/*   Updated: 2024/01/25 21:21:43 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	**ft_free(char *str)
+char	*test(t_gnl *g)
 {
-	free(str);
-	str = NULL;
+	g->tmp[g->rd] = '\0';
+	g->strnew = ft_strjoin(g->str, g->tmp);
+	if (!g->strnew)
+	{
+		free(g->tmp);
+		free(g->str);
+		g->str = NULL;
+		return (NULL);
+	}
+	free(g->str);
+	g->str = g->strnew;
+	return (g->str);
+}
+
+char	*ft_free(t_gnl *g)
+{
+	free(g->str);
+	g->str = NULL;
 	return (NULL);
 }
 
 char	*get_next_line(int fd)
 {
-	char			*result;
-	char			*tmp;
-	char			*strnew;
-	static char		*str;
-	char			*keep;
-	int				rd;
-	static char		*nl;
+	static t_gnl	g;
 
-	tmp = (char *)malloc(BUFFER_SIZE + 1);
-	if (!tmp)
+	g.tmp = (char *)malloc(BUFFER_SIZE + 1);
+	if (!g.tmp)
 	{
-		if (str)
-			free(str);
-		str = NULL;
-		nl = NULL;
+		if (g.str)
+			free(g.str);
+		g.str = NULL;
+		g.nl = NULL;
 		return (0);
 	}
-	while (!nl)
+	while (!g.nl)
 	{
-		rd = read(fd, tmp, BUFFER_SIZE);
-		if (rd < 1)
+		g.rd = read(fd, g.tmp, BUFFER_SIZE);
+		if (g.rd < 1)
 			break ;
-		tmp[rd] = '\0';
-		strnew = ft_strjoin(str, tmp);
-		if (!strnew)
+		if (!test(&g))
+			return (NULL);
+		g.nl = ft_strchr(g.str, '\n');
+	}
+	free(g.tmp);
+	if (g.rd < 0)
+		return (ft_free(&g));
+	if (!g.nl)
+	{
+		if (g.str == NULL)
+			return (NULL);
+		g.result = ft_strndup(g.str, ft_strlen(g.str));
+		if (!g.result)
+			ft_free(&g);
+		free(g.str);
+		g.str = NULL;
+		return (g.result);
+	}
+	if (g.str != NULL && g.nl[1] != '\0')
+	{
+		g.result = ft_strndup(g.str, (ft_strlen(g.str) - ft_strlen(g.nl) + 1));
+		if (!g.result)
 		{
-			free(tmp);
-			free(str);
-			str = NULL;
+			free(g.str);
+			g.str = NULL;
 			return (NULL);
 		}
-		free(str);
-		str = strnew;
-		nl = ft_strchr(str, '\n');
+		g.keep = ft_strndup((g.nl + 1), ft_strlen(ft_strchr(g.str, '\n') + 1));
+		free(g.str);
+		g.str = g.keep;
+		if (g.str)
+			g.nl = ft_strchr(g.str, '\n');
+		return (g.result);
 	}
-	free(tmp);
-	if (rd < 0)
+	if (g.str == NULL)
 	{
-		free(str);
-		str = NULL;
+		g.nl = NULL;
 		return (NULL);
 	}
-	if (!nl)
-	{
-		if (str == NULL)
-			return (NULL);
-		result = ft_strndup(str, ft_strlen(str));
-		if (!result)
-		{
-			free(str);
-			str = NULL;
-			return (NULL);
-		}
-		free(str);
-		str = NULL;
-		return (result);
-	}
-	if (str != NULL && nl[1] != '\0')
-	{
-		result = ft_strndup(str, (ft_strlen(str) - ft_strlen(nl) + 1));
-		if (!result)
-		{
-			free(str);
-			str = NULL;
-			return (NULL);
-		}
-		keep = ft_strndup((nl + 1), ft_strlen(ft_strchr(str, '\n') + 1));
-		free(str);
-		str = keep;
-		if (str)
-			nl = ft_strchr(str, '\n');
-		return (result);
-	}
-	if (str == NULL)
-	{
-		nl = NULL;
-		return (NULL);
-	}
-	result = ft_strndup(str, ft_strlen(str));
-	nl = NULL;
-	free(str);
-	str = NULL;
-	return (result);
+	g.result = ft_strndup(g.str, ft_strlen(g.str));
+	g.nl = NULL;
+	free(g.str);
+	g.str = NULL;
+	return (g.result);
 }

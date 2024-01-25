@@ -6,7 +6,7 @@
 /*   By: nkiticha <nkiticha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 18:13:56 by nkiticha          #+#    #+#             */
-/*   Updated: 2024/01/25 15:13:38 by nkiticha         ###   ########.fr       */
+/*   Updated: 2024/01/25 20:18:59 by nkiticha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef struct s_gnl
+{
+	char			*result;
+	char			*tmp;
+	char			*strnew;
+	char			*keep;
+	char			*str;
+	char			*nl;
+	int				rd;
+}	t_gnl;
 char	*get_next_line(int fd);
 char	*ft_strndup(const char *s1, int n);
 char	*ft_strchr(const char *s, int c);
